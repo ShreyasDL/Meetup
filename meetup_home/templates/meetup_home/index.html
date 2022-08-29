@@ -1,22 +1,30 @@
+{% extends 'meetup_home/base/base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meetups</title>
-    <link rel="stylesheet" href="{% static 'meetup_home/styles/base.css' %}">
-</head>
-<body>
-    <h1>Meetups</h1>
-    <p>Hello All!</p>
-    {% if show_meetups %}
-        {% for meetup_item in meetups %}
-            <h2> {{ meetup_item.title }} </h2>
+
+{% block title %}
+    Meetups
+{% endblock %}
+
+{% block site_css %}
+    <link rel="stylesheet" href="{% static 'meetup_home/styles/all-meetups.css' %}">
+{% endblock %}
+
+{% block main_heading %}
+    We got great meetups coming up!
+{% endblock %}
+
+{% block header_content %}
+    Find the one that best suits your needs
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2>Upcoming Meetups</h2>
+    <ol>
+        {% for meetup_item in meetups%}
+            {% include 'meetup_home/includes/meetup-item.html' with title=meetup_item.title image=meetup_item.image.url location=meetup_item.location slug=meetup_item.slug%}
         {% endfor %}
-    {% else %}
-        <p>No meetups found</p>
-    {% endif %}
-</body>
-</html>
+    </ol>
+</section>
+{% endblock %}
